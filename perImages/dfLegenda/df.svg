@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="213.99001"
+   height="88.989998"
+   id="svg9234"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="df.svg"
+   inkscape:export-filename="/Users/miguel/Dropbox/SWOWS-resources/perImages/dfLegenda/df.png"
+   inkscape:export-xdpi="400"
+   inkscape:export-ydpi="400">
+  <defs
+     id="defs9236">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path10329"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     inkscape:document-units="in"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.88"
+     inkscape:cx="130.34802"
+     inkscape:cy="26.349602"
+     inkscape:current-layer="layer1"
+     id="namedview9238"
+     showgrid="true"
+     showguides="true"
+     inkscape:window-width="1267"
+     inkscape:window-height="741"
+     inkscape:window-x="6"
+     inkscape:window-y="3"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="true"
+     inkscape:guide-bbox="true"
+     units="in"
+     fit-margin-top="0.1"
+     fit-margin-left="0.1"
+     fit-margin-right="0.1"
+     fit-margin-bottom="0.1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid9243"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="-160.505px"
+       originy="-1285.505px" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-180.505,-365.505"
+       id="guide10042" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-320.505,-205.505"
+       id="guide10044" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="499.495,-345.505"
+       id="guide10046" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-220.505,-315.505"
+       id="guide10050" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="279.495,-865.505"
+       id="guide10227" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="539.495,-850.505"
+       id="guide10279" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata9240">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-160.505,384.49501)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.99000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect12414"
+       width="195"
+       height="50"
+       x="208.495"
+       y="28.494989"
+       transform="translate(-38.495,-393.495)" />
+    <path
+       transform="translate(-114,-365.00001)"
+       d="m 450,50 c 0,5.522847 -30.22078,10 -67.5,10 -37.27922,0 -67.5,-4.477153 -67.5,-10 0,-5.522847 30.22078,-10 67.5,-10 37.27922,0 67.5,4.477153 67.5,10 z"
+       sodipodi:ry="10"
+       sodipodi:rx="67.5"
+       sodipodi:cy="50"
+       sodipodi:cx="382.5"
+       id="path10212"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       sodipodi:type="arc" />
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="218"
+       y="-313"
+       id="text10214"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan10216"
+         x="218"
+         y="-313"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Italic">Output (default or named)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text12424"
+       y="-337"
+       x="250"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Italic"
+         y="-337"
+         x="250"
+         id="tspan12426"
+         sodipodi:role="line">Dataflow</tspan></text>
+    <g
+       id="g10222"
+       transform="translate(-95,35)" />
+    <g
+       id="g12416"
+       transform="translate(-302,-445.00001)">
+      <path
+         transform="translate(187.5,30)"
+         d="m 450,50 c 0,5.522847 -30.22078,10 -67.5,10 -37.27922,0 -67.5,-4.477153 -67.5,-10 0,-5.522847 30.22078,-10 67.5,-10 37.27922,0 67.5,4.477153 67.5,10 z"
+         sodipodi:ry="10"
+         sodipodi:rx="67.5"
+         sodipodi:cy="50"
+         sodipodi:cx="382.5"
+         id="path12418"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.99000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         sodipodi:type="arc" />
+      <text
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="518"
+         y="82"
+         id="text12420"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan12422"
+           x="518"
+           y="82"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sans;-inkscape-font-specification:Sans Italic">Input (default or named)</tspan></text>
+    </g>
+  </g>
+</svg>

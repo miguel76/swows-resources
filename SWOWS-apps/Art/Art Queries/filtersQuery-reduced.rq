@@ -1,0 +1,44 @@
+PREFIX sp: <http://spinrdf.org/sp#>
+PREFIX spx: <http://www.swows.org/spinx#>
+
+CONSTRUCT {
+  <#FiltersQuery> ?mainP ?mainO.
+  ?cs ?cp ?co.
+  ?filtersContainer spx:element ?filterGroup.
+  [...]
+  ?fs ?fp ?fo.
+  ?filter
+    spx:resultVariable
+      ?resultAreaVar,
+      ?selectedArtworkVar;
+    sp:limit ?filterLimit.
+  ?resultAreaVar
+    sp:as ?areaVar;
+    sp:expression ?area. }
+WHERE {
+  GRAPH <#common> {
+    <filters-common.rq> ?mainP ?mainO.
+    ?filtersPlace sp:graphNameNode <place.filters>.
+    ?cs ?cp ?co.
+    FILTER(?co != ?filtersPlace).
+    ?filtersContainer
+      spx:element/spx:element ?filtersPlace.
+    [...]
+  {
+    SELECT
+      ?area ?filter ?filterLimit
+      [...]
+    WHERE {
+      GRAPH <#framing> {
+        ?area
+          a <#ImageArea>;
+          <#cols> ?areaCols;
+          <#rows> ?areaRows. }
+      GRAPH <#areas> {
+        ?area <#filter> ?filter. }
+      BIND(?areaCols*?areaRows AS ?filterLimit). }
+  }
+  GRAPH <#filters> {
+    ?fs ?fp ?fo.
+    [...] }
+}

@@ -1,0 +1,25 @@
+Gladly for us, web and data technology experts,
+
+a lot of the office and reasearch work that is done by people nowadays involves internet browsing and collecting different information to get the knowledge needed to take decisions, to make new hypothesis, to defend their thesises...
+
+People working in very different topics come to us asking to help them integrate and visualize the data that is available online but in different sites and document formats.
+
+We know the dream of Tim Berners Lee of an interoparable web of data is finally becoming reality and rejoice in the chance that a lot of the needed data could be already available as open linked data.
+
+But when we start designing the applications we must consider more implementation choices than we really need in most cases. We have to choose a framework, one or more programming languages and a lot of details on how the data has to be processed. This choices costrain reuse and upgrade of code.
+
+Have you ever dreamt of programming in the same way you can draw a picture of the flow of the data in your app?
+
+We built a prototype that we consider a small step in that direction.
+That's a pipeline language and a web based interface to create interactive visualizations of linked data. 
+
+It features a set of components defined entirely through Semantic Web standards as RDF and SPARQL.
+
+When the user saves the pipeline, that's stored in the server as linked data.
+Then the pipeline is executed as a web based application itself on a potentially different server running the engine.
+
+Being already in linked data format, the pipeline can be easily published to allow it to be used or copied and modified by other users.
+
+
+
+

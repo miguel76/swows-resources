@@ -1,0 +1,27 @@
+PREFIX :      <http://www.swows.org/samples/DemoMovie#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+PREFIX evt:  <http://www.swows.org/2013/07/xml-dom-events#>
+
+DELETE { swi:GraphRoot :selectedWork ?oldWork }
+INSERT { swi:GraphRoot :selectedWork ?newWork . }
+
+WHERE {
+	OPTIONAL{
+		swi:GraphRoot :selectedWork ?oldWork .
+	}
+	
+	
+	GRAPH <#bookMovieList>{
+		?newWork a html:td .
+	}
+	
+	GRAPH <#clickWork> {
+		?event
+			a evt:Event ;
+			evt:type "click" ;
+			evt:target ?newWork .
+	} .
+	
+	#FILTER ( ?newOption != ?oldOption ) .
+};

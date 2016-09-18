@@ -1,0 +1,31 @@
+PREFIX :      <http://www.swows.org/samples/WorldInfo#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX evt:  <http://www.swows.org/DOM/Events#>
+
+INSERT { swi:GraphRoot :selectedOption :gdpPerCapita }
+WHERE {
+  FILTER NOT EXISTS{ swi:GraphRoot :selectedOption ?anyOption } .
+};
+
+DELETE { swi:GraphRoot :selectedOption ?oldOption }
+INSERT { swi:GraphRoot :selectedOption ?newOption . }
+#INSERT { ?s ?p ?o . }
+#USING NAMED <#defaultInput>
+WHERE {
+  swi:GraphRoot :selectedOption ?oldOption.
+  GRAPH <#defaultInput> {
+#    ?s ?p ?o .
+    ?event
+      a evt:Event ;
+      evt:type "change" ;
+      evt:target ?eventTarget .
+  } .
+  VALUES (?newOption ?newOptionID) {
+      (:gdpPerCapita "gdpPerCapita")
+      (:density "density")
+      (:agriAreaRate "agriAreaRate")
+  } .
+  FILTER ( ?newOption != ?oldOption ).
+  FILTER( URI( CONCAT( STR(:optionButton_), ?newOptionID ) ) = ?eventTarget ) .
+};
+

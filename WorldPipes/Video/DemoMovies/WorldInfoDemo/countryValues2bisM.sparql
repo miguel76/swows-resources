@@ -1,0 +1,24 @@
+PREFIX :      <http://www.swows.org/samples/WorldInfo#>
+PREFIX geo:   <http://www.fao.org/countryprofiles/geoinfo/geopolitical/resource/>
+
+CONSTRUCT {
+  ?country
+    a geo:self_governing ;
+    geo:codeISO2 ?codeISO2upper ;
+    :gdpPerCapita ?gdpPerCapita ;
+    :density ?density ;
+    :agriAreaRate ?agriAreaRate .
+}
+WHERE {
+  ?country
+    a geo:self_governing ;
+    geo:codeISO2 ?codeISO2upper ;
+    geo:GDPTotalInCurrentPrices ?gdp ;
+    geo:populationTotal ?pop ;
+    geo:landAreaTotal ?landArea ;
+    geo:agriculturalAreaTotal ?agriArea .
+  BIND( ?gdp / ?pop AS ?gdpPerCapita ) .
+  BIND( ?pop / ?landArea AS ?density ) .
+  BIND( ?agriArea / ?landArea AS ?agriAreaRate ) .
+}
+

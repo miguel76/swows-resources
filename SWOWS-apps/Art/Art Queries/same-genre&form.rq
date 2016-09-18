@@ -1,0 +1,15 @@
+PREFIX aw: <http://rdf.freebase.com/ns/visual_art.artwork.>
+
+SELECT DISTINCT ?relatedArtwork
+WHERE {
+    ?selectedArtwork
+        aw:artist ?artist;
+        aw:art_genre ?genre;
+        aw:art_form ?form.
+    ?relatedArtwork
+        aw:artist ?diffArtist; 
+        aw:art_genre ?genre;
+        aw:art_form ?form.
+    FILTER(?diffArtist != ?artist).
+    OPTIONAL {?relatedArtwork aw:date_completed ?date}
+} ORDER BY ?date

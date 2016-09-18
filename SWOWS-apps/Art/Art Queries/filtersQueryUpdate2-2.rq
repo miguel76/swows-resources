@@ -1,0 +1,38 @@
+PREFIX sp: <http://spinrdf.org/sp#>
+PREFIX spx: <http://www.swows.org/spinx#>
+PREFIX var: <http://www.swows.org/spinx/var/>
+PREFIX local: <dataflow#>
+
+INSERT {
+  <filterUnion> spx:element
+    [ a spx:ElementGroup;
+      spx:element
+        <selected>,
+        [ a sp:Service;
+          sp:serviceURI <http://factforge.net/sparql>;
+          spx:element
+            [ a sp:SubQuery;
+              sp:query ?filter ] ] ].
+  ?filterWhere spx:element
+    [ a sp:SubQuery;
+      sp:query <filters-common.rq> ].
+  ?filter
+    spx:resultVariable
+      [ sp:as var:area; sp:expression ?area ],
+      var:selectedArtwork;
+    sp:limit ?filterLimit.
+}
+FROM NAMED <http://areas.org>
+WHERE {
+#  GRAPH <framing> {
+#    ?area
+#      a <ImageArea>;
+#      <cols> ?areaCols;
+#      <rows> ?areaRows. }.
+  {
+  GRAPH <http://areas.org>
+    { ?area var:filter ?filter. }.
+  }
+#  BIND(?areaCols*?areaRows AS ?filterLimit).
+#  GRAPH <filters> { ?filter sp:where ?filterWhere. }.
+};

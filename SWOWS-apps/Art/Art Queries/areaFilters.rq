@@ -1,0 +1,7 @@
+CONSTRUCT {
+  <#topBarArea> <#filter> <same-artist.rq>.
+  <#bottomBarArea> <#filter> <same-genre-form.rq>.
+  <#leftBarArea> <#filter> <same-genre.rq>.
+  <#rightBarArea> <#filter> <contemp.rq>.
+}
+WHERE {}

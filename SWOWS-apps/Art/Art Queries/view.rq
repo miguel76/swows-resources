@@ -1,0 +1,166 @@
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+PREFIX xml:   <http://www.swows.org/2013/07/xml-dom#>
+PREFIX svg:   <http://www.w3.org/2000/svg#>
+PREFIX xlink: <http://www.w3.org/1999/xlink#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX fb: <http://rdf.freebase.com/ns/>
+PREFIX dbpedia: <http://dbpedia.org/resource/>
+PREFIX dbp-ont: <http://dbpedia.org/ontology/>
+PREFIX umbel-sc: <http://umbel.org/umbel/sc/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ff: <http://factforge.net/>
+PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>
+
+PREFIX sparql-res: <http://www.w3.org/2005/sparql-results#>
+
+CONSTRUCT {
+
+  <#centralImage> xlink:href ?mainImageURI .
+
+  <#infoBoxName> xml:textContent ?nameStr .
+  <#infoBoxArtist> xml:textContent ?artistStr .
+  <#infoBoxArtForm> xml:textContent ?artFormStr .
+  <#infoBoxArtGenre> xml:textContent ?artGenreStr .
+  <#infoBoxArtSubject> xml:textContent ?artSubjectStr .
+  <#infoBoxDate> xml:textContent ?dateStr .
+
+  ?svgArea xml:hasChild ?relArtworkInstance .
+
+  ?relArtworkInstance
+    a svg:use ;
+    nn:x ?areaImageX ;
+    nn:y ?areaImageY ;
+    xlink:href ?relArtwork .
+
+  <#defs> xml:hasChild ?relArtwork.
+
+  ?relArtwork
+    a svg:image ;
+    nn:width ?smallImagesWidth ;
+    nn:height ?smallImagesHeight ;
+    xml:listenedEventType "click";
+    xlink:href ?relImageIRI .
+
+}
+WHERE {
+  BIND('en' as ?language).
+ 
+  GRAPH <#framing> {
+    <>
+      <#padding> ?padding;
+      <#smallImagesWidth> ?smallImagesWidth;
+      <#smallImagesHeight> ?smallImagesHeight;
+      <#windowWidth> ?windowWidth;
+      <#windowHeight> ?windowHeight.
+    ?relArea
+      <#svgElement> ?svgArea;
+      <#x> ?areaX;
+      <#y> ?areaY;
+      <#width> ?areaWidth;
+      <#height> ?areaHeight;
+      <#cols> ?areaCols;
+      <#rows> ?areaRows.
+  }
+  BIND(?areaCols*?areaRows AS ?areaSpaces).
+
+  GRAPH <#selected> {
+    <#global> <#selectedArtwork> ?selectedArtwork.
+  }
+
+  GRAPH <#relArtwork> {
+    {
+      SELECT
+        ?relArea
+        (COUNT(DISTINCT ?result) AS ?areaAwNum)
+        (MIN(xsd:integer(?relArtworkGenIndexStr)) AS ?areaMinAwIndex)
+      WHERE {
+        ?result a sparql-res:result.
+        ?result
+          a sparql-res:result;
+          xml:orderKey ?relArtworkGenIndexStr;
+          xml:hasChild ?areaBinding, ?awBinding.
+        ?areaBinding
+          a sparql-res:binding;
+          nn:name "area";
+          xml:hasChild/xml:hasChild/xml:nodeValue ?relAreaStr.
+        BIND(IRI(?relAreaStr) AS ?relArea).
+        ?awBinding
+          a sparql-res:binding;
+          nn:name "relatedArtwork";
+          xml:hasChild/xml:hasChild/xml:nodeValue ?relArtworkStr.
+      }
+      GROUP BY ?relArea
+    }
+    ?result
+      a sparql-res:result;
+      xml:orderKey ?relArtworkGenIndexStr;
+      xml:hasChild ?areaBinding, ?awBinding.
+    ?areaBinding
+      a sparql-res:binding;
+      nn:name "area";
+      xml:hasChild/xml:hasChild/xml:nodeValue ?relAreaStr.
+    FILTER(IRI(?relAreaStr) = ?relArea).
+    ?awBinding
+      a sparql-res:binding;
+      nn:name "relatedArtwork";
+      xml:hasChild/xml:hasChild/xml:nodeValue ?relArtworkStr.
+  }
+
+  BIND(xsd:integer(?relArtworkGenIndexStr) AS ?relArtworkGenIndex).
+  BIND(?relArtworkGenIndex-?areaMinAwIndex AS ?relArtworkIndex).
+  BIND(IF(?areaAwNum>?areaSpaces,?areaSpaces,?areaAwNum) AS ?areaImagesNumTemp).
+  BIND(1.0*?areaImagesNumTemp/?areaSpaces AS ?imageDensity).
+  BIND(CEIL(?imageDensity*?areaRows) AS ?imageRows).
+  BIND(CEIL(?imageDensity*?areaCols) AS ?imageCols).
+  BIND(?imageRows*?imageCols AS ?areaImagesNum).
+  BIND((?areaWidth-?smallImagesWidth*?imageCols)/(?imageCols+1) AS ?areaPaddingX).
+  BIND((?areaHeight-?smallImagesHeight*?imageRows)/(?imageRows+1) AS ?areaPaddingY).
+
+  FILTER(?relArtworkIndex < ?areaImagesNum).
+  BIND(FLOOR(?relArtworkIndex/?imageCols) AS ?relArtworkRow).
+  BIND(?relArtworkIndex-?relArtworkRow*?imageCols AS ?relArtworkCol).
+  BIND(?areaX+(?relArtworkCol+1)*?areaPaddingX+?relArtworkCol*?smallImagesWidth AS ?areaImageX).
+  BIND(?areaY+(?relArtworkRow+1)*?areaPaddingY+?relArtworkRow*?smallImagesHeight AS ?areaImageY).
+
+  BIND(IRI(?relArtworkStr) AS ?relArtwork) .
+  BIND(IRI(CONCAT(STR(<#relArtworkInstance>),MD5(STR(?relArea)),MD5(STR(?relArtwork)))) AS ?relArtworkInstance).
+
+  SERVICE <http://factforge.net/sparql> {
+    ?selectedArtwork
+      fb:common.topic.image ?mainImage ;
+      fb:type.object.name ?name ;
+      fb:visual_art.artwork.artist ?artist ;
+      fb:visual_art.artwork.date_completed ?date_completed ;
+      fb:visual_art.artwork.art_form ?art_form ;
+      fb:visual_art.artwork.art_genre ?art_genre .
+    BIND(?date_completed AS ?year_completed).
+    OPTIONAL {
+      ?selectedArtwork fb:visual_art.artwork.art_subject ?art_subject.
+      ?art_subject fb:type.object.name ?artSubjectName.
+      FILTER (lang(?artSubjectName) = ?language).
+    }.
+    ?mainImage
+	fb:type.content.source/fb:type.content_import.uri ?mainImageURI .
+    ?artist
+      fb:type.object.name ?artistName .
+    ?art_form fb:type.object.name ?artFormName .
+    ?art_genre fb:type.object.name ?artGenreName .
+    
+    FILTER ( lang(?name) = ?language ).
+    FILTER ( lang(?artistName) = ?language ).
+    FILTER ( lang(?artFormName) = ?language ).
+    FILTER ( lang(?artGenreName) = ?language ).
+    
+    ?relArtwork fb:common.topic.image/fb:type.content.source/fb:type.content_import.uri ?relImageIRI.
+
+  }
+
+  BIND(CONCAT('Name: ',?name) AS ?nameStr).
+  BIND(CONCAT('Artist: ',?artistName) AS ?artistStr).
+  BIND(CONCAT('Form: ',?artFormName) AS ?artFormStr).
+  BIND(CONCAT('Genre: ',?artGenreName) AS ?artGenreStr).
+  BIND(CONCAT('Subject: ',?artSubjectName) AS ?artSubjectStr).
+  BIND(CONCAT('Date: ',STR(?year_completed)) AS ?dateStr).
+}
+

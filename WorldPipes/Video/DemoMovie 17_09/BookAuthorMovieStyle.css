@@ -1,0 +1,74 @@
+body{
+	color:black;
+	font-family:serif;
+	font-size:16px;
+	background-color:transparent;
+	background-position:100% 100%;
+	overflow:auto;
+	z-index:0;
+}
+
+.contenitore{
+	border-collapse:separate;
+	border-spacing:10px;
+	text-align:center;
+}
+
+.tdcontenitore{
+	padding: 0px 0px;
+}
+
+.tablestyle{
+	border: 1px solid #666666;
+	border-collapse:collapse;
+	background:#FDEEF4;
+	text-align:center;
+}
+
+#author{
+	table-layout:fixed;
+	width:300px;
+}
+
+#bookmovie{
+	table-layout:fixed;
+	width:550px;
+}
+
+#autori{
+    height:200px;
+    display:inline-block;
+    width:100%;
+    text-align:center;
+    overflow-y:auto;
+    cursor:pointer;
+}
+
+#libriFilm{
+	display:inline-block;
+	height:200px;
+	text-align:center;
+	overflow-y:auto;
+	cursor:pointer;
+}
+
+td {
+    padding: 5px 105px;
+}
+
+th{
+	border: 1px solid #666666;
+	border-collapse:collapse;
+	padding:3px;
+}
+
+.selectedAuthor{
+	font-weight:bold;
+	color:red;
+}
+
+iframe{
+	height:70%;
+	width:100%;
+	overflow:auto;
+}

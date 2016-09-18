@@ -1,0 +1,59 @@
+body{
+	color:black;
+	font-family:serif;
+	font-size:16px;
+	background-color:transparent;
+	background-position:100% 100%;
+	overflow:auto;
+	z-index:0;
+}
+
+.contenitore{
+	border-collapse:separate;
+	border-spacing:10px;
+	text-align:center;
+}
+
+.tablestyle{
+	border: 1px solid #666666;
+	background:#FDEEF4;
+	text-align:center;
+}
+
+#author{
+	table-layout:fixed;
+	width:300px;
+}
+
+#bookmovie{
+	table-layout:fixed;
+	width:550px;
+}
+
+.thead th{
+	display:inline-block;
+	width: 250px;
+}
+
+.tbody{	
+	display:inline-block;
+	border-top:1px solid #666666;
+	height:200px; 
+	width:100%;
+	text-align:center;
+	overflow-y:scroll;
+	cursor:pointer;
+}
+
+td{width:250px;}
+
+.selectedAuthor{
+	font-weight:bold;
+	color:red;
+}
+
+iframe{
+	height:70%;
+	width:100%;
+	overflow:auto;
+}

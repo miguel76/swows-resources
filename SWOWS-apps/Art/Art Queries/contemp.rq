@@ -1,0 +1,7 @@
+PREFIX aw: <http://rdf.freebase.com/ns/visual_art.artwork.>
+
+SELECT DISTINCT ?relatedArtwork
+WHERE {
+    ?selectedArtwork aw:date_completed ?date.
+    ?relatedArtwork aw:date_completed ?closeDate.
+} ORDER BY ABS(?closeDate-?date)

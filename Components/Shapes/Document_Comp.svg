@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="50"
+   width="160"
+   id="svg2575"
+   sodipodi:version="0.32"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="Document_Comp.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   inkscape:export-filename="/home/miguel/Dropbox/Icons/Document_Comp.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs2577" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:cx="67.5"
+     inkscape:cy="10.00056"
+     inkscape:zoom="5.6888889"
+     inkscape:document-units="px"
+     inkscape:current-layer="g2774"
+     inkscape:window-width="1600"
+     inkscape:window-height="876"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     width="135px"
+     height="135px"
+     showgrid="true"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3009"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2580">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Warstwa 1"
+     id="layer1"
+     transform="translate(-116.68875,-318.87485)">
+    <g
+       id="g2774"
+       transform="matrix(0.3766681,0,0,0.3766681,176.10416,228.99401)">
+      <path
+         id="path2601"
+         d="m 253.76343,278.44365 0,74.336 c 0,3.30324 -2.00647,5.30971 -5.30971,5.30971 l -387.60915,0 c -3.30324,0 -5.30971,-2.00648 -5.30971,-5.30971 l 0,-95.57486 c 0,-3.30324 2.00647,-5.30971 5.30971,-5.30971 l 0,0 366.37029,0"
+         style="color:#000000;fill:#dcdcdc;fill-opacity:1;fill-rule:nonzero;stroke:#545454;stroke-width:5.30971432000000032;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="csssssccc" />
+      <path
+         id="rect2583"
+         d="m 253.76343,278.44365 -21.23885,0 c -3.30325,0 -5.30972,-2.00647 -5.30972,-5.30972 l 0,-21.23885"
+         style="color:#000000;fill:none;stroke:#545454;stroke-width:5.30971432000000032;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cssc" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path2603"
+         d="m 227.21486,251.89508 26.54857,26.54857"
+         style="color:#000000;fill:none;stroke:#545454;stroke-width:5.30971432000000032;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         inkscape:connector-curvature="0" />
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:5.30971432;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3654"
+         width="345.13144"
+         height="53.097141"
+         x="-117.91657"
+         y="411.18649" />
+    </g>
+  </g>
+</svg>

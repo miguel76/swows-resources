@@ -1,0 +1,91 @@
+PREFIX :      <http://www.swows.org/samples/DemoMovie#>
+PREFIX xml:   <http://www.swows.org/2013/07/xml-dom#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+PREFIX structHtml: <http://localhost/DemoMovie/BookAuthorMovieTable.html#>
+
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix dbpprop: <http://dbpedia.org/property/>
+prefix dbpedia: <http://dbpedia.org/resource/>
+prefix fb: <http://rdf.freebase.com/ns/> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#> 
+
+CONSTRUCT {
+
+  html:tr
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "tr" .
+
+  html:td
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "td" .
+
+  nn:id
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "id" .
+
+  nn:class
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "class" .
+
+  structHtml:libriFilm
+    xml:hasChild ?riga .
+      
+  ?riga
+    a html:tr ;
+    xml:hasChild ?book, ?movie  .
+  
+  ?book
+    a html:td ;
+    xml:hasChild ?textbook ;
+    xml:listenedEventType "click" .
+  
+  ?movie
+    a html:td ;
+    xml:hasChild ?textmovie ;
+    xml:listenedEventType "click" .
+    
+  ?textbook
+    a xml:Text ;
+    xml:nodeValue ?bookLabel .
+   
+  ?textmovie
+    a xml:Text ;
+    xml:nodeValue ?movieLabel .
+}
+
+WHERE {
+	{
+		select ?book ?movie ?bookLabel ?movieLabel
+		where {
+			GRAPH <#autore>{
+				swi:GraphRoot :selectedAuthor ?author .
+			}
+			service <http://factforge.net/sparql> {
+				
+				?book fb:book.written_work.author ?author .
+				?book dbpprop:name ?bookLabel .
+				?book fb:media_common.adapted_work.adaptations ?movie .
+				?book a fb:book.book .
+				
+				?movie a fb:film.film .
+				?movie dbpprop:name ?movieLabel .
+			}
+			FILTER( substr( str(?book),0, strlen(str(fb:))+2 ) = str(fb:m)).
+			FILTER( substr( str(?movie),0, strlen(str(fb:))+2 ) = str(fb:m)).
+		}
+	} .
+	
+	BIND( URI( CONCAT( STR(:riga), MD5(STR(?book)), MD5(STR(?movie)) ) ) AS ?riga ) .
+	BIND( URI( CONCAT( STR(:textbook), MD5(STR(?book)) ) ) AS ?textbook ) .
+	BIND( URI( CONCAT( STR(:textmovie), MD5(STR(?movie)) ) ) AS ?textmovie ) .
+}
+
+

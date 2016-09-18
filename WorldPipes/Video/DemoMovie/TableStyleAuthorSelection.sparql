@@ -1,0 +1,43 @@
+PREFIX :      <http://www.swows.org/samples/DemoMovie#>
+PREFIX xml:   <http://www.swows.org/2013/07/xml-dom#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+PREFIX structHtml: <http://localhost/DemoMovie/BookAuthorMovieTable.html#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX wk: <http://en.wikipedia.org/wiki/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix dbpprop: <http://dbpedia.org/property/>
+prefix dbpedia: <http://dbpedia.org/resource/>
+prefix fb: <http://rdf.freebase.com/ns/> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#> 
+
+CONSTRUCT {
+	nn:class
+		rdfs:subClassOf xml:Attr ;
+		xml:namespace <http://www.swows.org/xml/no-namespace> ;
+		xml:nodeName "class" .
+	
+	structHtml:iframe nn:src ?wikipagestr .
+	
+	nn:src
+		rdfs:subClassOf xml:Attr ;
+		xml:namespace <http://www.swows.org/xml/no-namespace> ;
+		xml:nodeName "src" .
+
+	?author nn:class "selectedAuthor" .
+}
+
+WHERE {
+	GRAPH <#selectedAuthor>{
+		swi:GraphRoot :selectedAuthor ?author .
+	}
+	service <http://factforge.net/sparql> {
+		?author		
+			foaf:isPrimaryTopicOf ?wikipage .
+	}
+	BIND(str(?wikipage) as ?wikipagestr).
+	FILTER( substr(?wikipagestr,0,strlen(str(wk:))+1 ) = str(wk:)).
+}

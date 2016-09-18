@@ -1,0 +1,124 @@
+PREFIX :      <http://www.swows.org/samples/WorldInfo#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+
+CONSTRUCT {
+
+  html:html
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "html" .
+
+  html:head
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "head" .
+
+  html:body
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "body" .
+
+  html:div
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "div" .
+
+  html:form
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "form" .
+
+  html:input
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "input" .
+
+  nn:type
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "type" .
+   
+  nn:name
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "name" .
+
+  nn:value
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "value" .
+
+  nn:id
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "id" .
+
+  nn:checked
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "checked" .
+
+  swi:GraphRoot xml:document <#doc> .
+    
+  <#doc>
+    a xml:Document ;
+    xml:hasChild <#html> .
+
+  <#html>
+    a html:html ;
+    xml:hasChild <#body> .
+    
+  <#body>
+    a html:body ;
+    xml:hasChild <#div_form>, <#div_svg> .
+    
+  <#div_form>
+    a html:div ;
+    xml:hasChild <#form> .
+    
+  <#form>
+    a html:form ;
+    xml:hasChild ?optionButton .
+    
+  ?optionButton
+    a html:input ;
+    nn:type "radio" ;
+    nn:name "option" ;
+    nn:value ?optionID ;
+    nn:id ?optionID ;
+    nn:checked ?optionChecked ;
+    xml:hasChild ?optionTxt ;
+    xml:listenedEventType "change" .
+    
+  ?optionTxt
+    a xml:Text ;
+    xml:nodeValue ?optionDescr .
+    
+  <#div_svg>
+    a html:div ;
+    ?pD ?oD .
+
+}
+WHERE {
+
+  VALUES (?option ?optionID ?optionDescr) {
+    (:gdpPerCapita "gdpPerCapita" "GDP per Capita")
+    (:density "density" "Population Density")
+    (:agriAreaRate "agriAreaRate" "Proportion of Area used for Agriculture")
+  } .
+  OPTIONAL {
+    VALUES ?option { :gdpPerCapita }.
+    BIND( true AS ?optionChecked ) .
+  } .
+  BIND( URI( CONCAT( STR(:optionButton_), ?optionID ) ) AS ?optionButton ) .
+  BIND( URI( CONCAT( STR(:optionTxt), MD5(STR(?option)) ) ) AS ?optionTxt ) .
+
+  ?sD ?pD ?oD .
+  FILTER( EXISTS{ ?sD a xml:Document } && ?pD != rdf:type ).
+
+}

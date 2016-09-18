@@ -1,0 +1,18 @@
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix dbpprop: <http://dbpedia.org/property/>
+prefix dbpedia: <http://dbpedia.org/resource/>
+prefix fb: <http://rdf.freebase.com/ns/> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#> 
+
+select ?authorLabel ?jrrType ?book ?movie
+where {
+  service <http://factforge.net/sparql> {
+    fb:m.041h0 skos:prefLabel ?authorLabel .
+    fb:m.041h0 a ?jrrType .
+    ?book fb:book.written_work.author fb:m.041h0 .
+#    ?book skos:prefLabel ?bookLabel .
+    ?book fb:media_common.adapted_work.adaptations ?movie .
+    ?book a fb:book.book .
+    ?movie a fb:film.film .
+  }
+} limit 100 

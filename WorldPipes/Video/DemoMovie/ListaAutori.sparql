@@ -1,0 +1,76 @@
+PREFIX :      <http://www.swows.org/samples/DemoMovie#>
+PREFIX xml:   <http://www.swows.org/2013/07/xml-dom#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+PREFIX structHtml: <http://localhost/DemoMovie/BookAuthorMovieTable.html#>
+
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix dbpprop: <http://dbpedia.org/property/>
+prefix dbpedia: <http://dbpedia.org/resource/>
+prefix fb: <http://rdf.freebase.com/ns/> 
+prefix skos: <http://www.w3.org/2004/02/skos/core#> 
+
+CONSTRUCT {
+
+  html:tr
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "tr" .
+
+  html:td
+    rdfs:subClassOf xml:Element ;
+    xml:namespace <http://www.w3.org/1999/xhtml> ;
+    xml:nodeName "td" .
+
+  nn:id
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "id" .
+
+  nn:class
+    rdfs:subClassOf xml:Attr ;
+    xml:namespace <http://www.swows.org/xml/no-namespace> ;
+    xml:nodeName "class" .
+
+  structHtml:autori
+    xml:hasChild ?riga .
+      
+  ?riga
+    a html:tr ;
+    xml:hasChild ?author  .
+  
+  ?author
+    a html:td ;
+    xml:hasChild ?text ;
+    xml:listenedEventType "click" .
+    
+  ?text
+    a xml:Text ;
+    xml:nodeValue ?authorLabel .
+}
+
+WHERE {
+	{
+		select ?author ?authorLabel
+		where {
+			service <http://factforge.net/sparql> {
+				?author
+					a fb:book.author ;
+					a fb:film.film_story_contributor ;
+					skos:prefLabel ?authorLabel .
+				?book
+					a fb:book.book ;
+					fb:book.written_work.author ?author ;
+					fb:media_common.adapted_work.adaptations [ a fb:film.film ] .
+			}
+			FILTER( substr( str(?author),0, strlen(str(fb:))+2 ) = str(fb:m)).
+		} 
+	} .
+	BIND( URI( CONCAT( STR(:riga), MD5(STR(?author)) ) ) AS ?riga ) .
+	BIND( URI( CONCAT( STR(:text), MD5(STR(?author)) ) ) AS ?text ) .
+
+}
+

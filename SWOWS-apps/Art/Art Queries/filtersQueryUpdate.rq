@@ -1,0 +1,64 @@
+PREFIX sp: <http://spinrdf.org/sp#>
+PREFIX spx: <http://www.swows.org/spinx#>
+
+DELETE {
+  ?cs ?cp ?filtersPlace.
+}
+INSERT {
+  <#FiltersQuery> ?mainP ?mainO.
+  ?filtersContainer spx:element ?filterGroup.
+  ?filterGroup
+    a spx:ElementGroup;
+    spx:element ?selected;
+    spx:element ?filterService.  
+  ?filterService
+    a sp:Service;
+    sp:serviceURI <http://factforge.net/sparql>;
+    spx:element ?filterSubquery.
+  ?filterSubquery
+    a sp:SubQuery;
+    sp:query ?filter.
+  ?filterWhere spx:element ?common.
+  ?filter
+    spx:resultVariable
+      ?resultAreaVar,
+      ?selectedArtworkVar;
+    sp:limit ?filterLimit.
+  ?resultAreaVar
+    sp:as ?areaVar;
+    sp:expression ?area.
+}
+WHERE {
+  GRAPH <#common> {
+    <filters-common.rq> ?mainP ?mainO.
+    ?filtersPlace sp:graphNameNode <place.filters>.
+    ?cs ?cp ?filtersPlace.
+    ?filtersContainer
+      spx:element/spx:element ?filtersPlace.
+    ?commonContainer
+      sp:graphNameNode <var.common>;
+      spx:element ?common.
+    ?selectedArtworkVar sp:varName "selectedArtwork".
+    ?areaVar sp:varName "area".
+    ?selectedContainer
+      sp:graphNameNode <var.selected>;
+      spx:element ?selected. }
+  {
+    SELECT
+      ?area ?filter ?filterLimit
+      (UUID() AS ?filterSubquery)
+      (UUID() AS ?resultAreaVar)
+      (UUID() AS ?filterService)
+      (UUID() AS ?filterGroup)
+    WHERE {
+      GRAPH <#framing> {
+        ?area
+          a <#ImageArea>;
+          <#cols> ?areaCols;
+          <#rows> ?areaRows. }
+      GRAPH <#areas> {
+        ?area <#filter> ?filter. }
+      BIND(?areaCols*?areaRows AS ?filterLimit). }
+  }
+  GRAPH <#filters> { ?filter sp:where ?filterWhere. }
+}

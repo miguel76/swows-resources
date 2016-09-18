@@ -1,0 +1,22 @@
+PREFIX evt:  <http://www.swows.org/2013/07/xml-dom-events#>
+PREFIX fb: <http://rdf.freebase.com/ns/>
+
+INSERT {
+#  <#global> <#selectedArtwork> fb:m.07g8ybw.
+  <#global> <#selectedArtwork> fb:m.063j6x5.
+}
+WHERE {
+  NOT EXISTS {<#global> <#selectedArtwork> ?selected}
+};
+
+DELETE { <#global> <#selectedArtwork> ?oldSelected }
+INSERT { <#global> <#selectedArtwork> ?newSelected }
+WHERE {
+  <#global> <#selectedArtwork> ?oldSelected.
+  GRAPH <#event> {
+    ?event
+      a evt:Event ;
+      evt:type "click" ;
+      evt:toElement ?newSelected .
+  }
+};

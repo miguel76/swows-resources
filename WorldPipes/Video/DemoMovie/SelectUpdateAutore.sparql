@@ -1,0 +1,26 @@
+PREFIX :      <http://www.swows.org/samples/DemoMovie#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX html:  <http://www.w3.org/1999/xhtml#>
+PREFIX evt:  <http://www.swows.org/2013/07/xml-dom-events#>
+
+DELETE { swi:GraphRoot :selectedAuthor ?oldAuthor }
+INSERT { swi:GraphRoot :selectedAuthor ?newAuthor . }
+
+WHERE {
+	OPTIONAL{
+		swi:GraphRoot :selectedAuthor ?oldAuthor .
+	}
+	
+	GRAPH <#authorList>{
+		?newAuthor a html:td .
+	}
+	
+	GRAPH <#clickEvent> {
+		?event
+			a evt:Event ;
+			evt:type "click" ;
+			evt:target ?newAuthor .
+	} .
+	
+	#FILTER ( ?newOption != ?oldOption ) .
+};

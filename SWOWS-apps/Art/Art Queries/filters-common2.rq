@@ -1,0 +1,19 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fb: <http://rdf.freebase.com/ns/>
+PREFIX aw: <http://rdf.freebase.com/ns/visual_art.artwork.>
+
+SELECT ?selectedArtwork ?relatedArtwork
+WHERE {
+  ?relatedArtwork
+    a fb:visual_art.artwork;
+    fb:type.object.name ?name;
+    aw:artist ?artist;
+    aw:date_completed ?date_completed;
+    aw:art_form ?art_form;
+    aw:art_genre ?art_genre;
+    fb:common.topic.image/fb:type.content.source ?imageSource.
+    FILTER(?relatedArtwork != ?selectedArtwork).
+    FILTER(STRSTARTS(STR(?relatedArtwork),STR(fb:m))).
+}

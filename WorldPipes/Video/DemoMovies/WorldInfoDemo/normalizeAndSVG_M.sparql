@@ -1,0 +1,68 @@
+PREFIX :      <http://www.swows.org/samples/WorldInfo#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX geo:   <http://www.fao.org/countryprofiles/geoinfo/geopolitical/resource/>
+PREFIX map:   <http://upload.wikimedia.org/wikipedia/commons/8/8c/BlankMap-World-Microstates.svg#>
+PREFIX svg:   <http://www.w3.org/2000/svg#>
+PREFIX nn:    <http://www.swows.org/xml/no-namespace#>
+
+CONSTRUCT {
+
+  map:svg2 xml:hasChild <#style> .
+
+  <#style>
+    a svg:style ;
+    nn:type "text/css" ;
+    xml:hasChild <#style_text> .
+
+  <#style_text>
+    a xml:Text ;
+    xml:nodeValue ?style_value .
+
+}
+WHERE {
+ 
+ {
+ SELECT ( GROUP_CONCAT( ?country_style_value ) AS ?style_value )
+ WHERE {
+
+  GRAPH <#selectedOption> {
+    swi:GraphRoot :selectedOption ?selectedOption .
+  }
+   
+  ?country
+    a geo:self_governing ;
+    geo:codeISO2 ?codeISO2upper ;
+    ?selectedOption ?value .
+    
+  {
+    SELECT ?selectedOption (MAX(?value) AS ?maxValue)
+    WHERE {
+      ?country
+        a geo:self_governing ;
+        ?selectedOption ?value .
+    } GROUP BY ?selectedOption
+  } .
+  {
+    SELECT ?selectedOption (MIN(?value) AS ?minValue)
+    WHERE {
+      ?country
+        a geo:self_governing ;
+        ?selectedOption ?value .
+    } GROUP BY ?selectedOption
+  } .
+  BIND( ( ?value - ?minValue ) / ( ?maxValue - ?minValue ) AS ?proportion ).
+
+  BIND( LCASE(?codeISO2upper) AS ?country_class ) .
+
+  BIND( STR(255) AS ?red ).
+  BIND( STR(xsd:integer( ROUND( xsd:decimal( (1 - ?proportion) * 255) ) ) ) AS ?green ).
+  BIND( STR(xsd:integer( ROUND( xsd:decimal( (1 - ?proportion) * 255) ) ) ) AS ?blue ).
+
+  BIND( CONCAT( ".", ?country_class, " { fill: rgb(", ?red, ",", ?green, ",", ?blue, ") !important }" ) AS ?country_style_value ) .
+#  BIND( URI( CONCAT( STR(:country_style_text_), MD5(STR(?country)) ) ) AS ?country_style_text ) .
+ }
+ }
+}
+
